@@ -22,7 +22,7 @@ This repository showcases my efforts in setting up a **Security Information and 
 
 ## 📸 Screenshots
 ### Sample Log Entry in Kibana
-![Kibana Screenshot](screenshots/sample-log.png)
+![Kibana Screenshot](logs.png)
 
 ---
 
