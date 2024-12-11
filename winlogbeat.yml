@@ -1,0 +1,51 @@
+###################### Winlogbeat Configuration Example ########################
+
+winlogbeat.event_logs:
+  - name: Application
+    ignore_older: 72h
+
+  - name: System
+
+  - name: Security
+
+  - name: Microsoft-Windows-Sysmon/Operational
+
+  - name: Windows PowerShell
+    event_id: 400, 403, 600, 800
+
+  - name: Microsoft-Windows-PowerShell/Operational
+    event_id: 4103, 4104, 4105, 4106
+
+  - name: ForwardedEvents
+    tags: [forwarded]
+
+# ================================== Kibana ===================================
+
+setup.kibana:
+  host: "http://192.168.1.234:5601" # Pointing to your Kibana instance
+
+# =============================== Elastic Cloud ================================
+
+# Cloud options are commented as you are using an on-prem setup
+
+# ================================== Outputs ===================================
+
+# ---------------------------- Elasticsearch Output ----------------------------
+# Commenting out Elasticsearch output since we are using Logstash
+# output.elasticsearch:
+#   hosts: ["localhost:9200"]
+
+# ------------------------------ Logstash Output -------------------------------
+output.logstash:
+  hosts: ["192.168.1.234:5044"] # Pointing to your Logstash on Kali Linux
+
+# ================================= Processors =================================
+processors:
+  - add_host_metadata:
+      when.not.contains.tags: forwarded
+  - add_cloud_metadata: ~
+
+# ================================== Logging ===================================
+
+# Sets log level. The default log level is info.
+logging.level: info
